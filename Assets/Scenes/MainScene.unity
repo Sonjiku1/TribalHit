@@ -179,6 +179,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ddc90b25f2d847faa0d171dcb56ee10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
+  enemyPrefab: {fileID: 6723212666856487154, guid: 1fa4848af526c45a1a0509d0ce447a16, type: 3}
 --- !u!4 &171467583
 Transform:
   m_ObjectHideFlags: 0
