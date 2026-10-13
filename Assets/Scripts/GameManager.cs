@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -43,23 +44,19 @@ public class GameManager : MonoBehaviour
 
         //instanciar un enemigo 
 
-       createdEnemy= Instantiate(enemyPrefab, Vector3.zero, Quaternion.identity); 
+       createdEnemy= Instantiate(enemyPrefab, Vector3.zero, Quaternion.identity);
 
         // Que se desplace 3 unidades en el eje x 
 
 
-       
+        GenerarEnemigos(enemyPrefab);
     }
     
 
     void Update()
     {
         // Reiniciamos la ronda pulsando R
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            GenerarEnemigos(enemyPrefab);
-        }
-
+    
         createdEnemy.transform.position += new Vector3(3.0f, 0f, 0f) * Time.deltaTime;
 
         if (createdEnemy.transform.position.x > 10.85f)
@@ -105,7 +102,7 @@ public class GameManager : MonoBehaviour
             // Instanciamos el enemigo en la posición elegida y lo guardamos en la lista
             GameObject enemy = Instantiate(
             enemyPrefab,
-            position: spawnPositions[randomposition].position,
+            spawnPositions[randomposition].position,
             Quaternion.identity);
 
 
@@ -118,6 +115,7 @@ public class GameManager : MonoBehaviour
 
 
             // Si el prefab tiene un componente que necesita referencia al GameManager,
+            
 
 
             // asignarla aquí (no se puede asumir el nombre del componente sin más contexto).
@@ -132,12 +130,24 @@ public class GameManager : MonoBehaviour
 
     public void EnemigoDestruido(GameObject enemy)
     {
-
+       
         //TODO: 
         // Eliminamos la referencia de la lista.
         // Cuando la lista esté vacía,
         // hemos terminado la ronda.
-        
+
+        activeEnemies.Remove(enemy);
+
+        score += 100; // Incrementa el score en 10 puntos por cada enemigo destruido
+
+        Debug.Log(" enemigo destruido. Score: " + score);
+
+        if (activeEnemies.Count == 0)
+        {
+            Debug.Log("Ronda completada. Score: " + score);
+            ReiniciarEnemigos();
+        }
+
     }
 
 

@@ -181,14 +181,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   enemyPrefab: {fileID: 6723212666856487154, guid: 1fa4848af526c45a1a0509d0ce447a16, type: 3}
   spawnPositions:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 464969395}
+  - {fileID: 1838730396}
+  - {fileID: 1629460360}
+  - {fileID: 1640333336}
+  - {fileID: 1021753842}
+  - {fileID: 135338362}
+  - {fileID: 629080107}
+  - {fileID: 1821878031}
+  - {fileID: 305064009}
   numberOfEnemies: 5
 --- !u!4 &171467583
 Transform:
