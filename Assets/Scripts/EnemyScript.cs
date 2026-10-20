@@ -4,21 +4,17 @@ public class EnemyScript : MonoBehaviour
 {
     private GameManager gameManager;
 
-    public void initialize(GameManager manager)
+    public void Initialize(GameManager manager)
     {
         gameManager = manager;
     }
 
-
-    public void OnMouseDown()
+    private void OnMouseDown()
     {
+        Debug.Log("Hola");
 
-    Debug.Log("Hola");
+        gameManager.EnemigoDestruido(gameObject);
 
-        GameManager.EnemigoDestruido(GameObject);
-
-        Destroy(GameObject);
+        Destroy(gameObject);
+    }
 }
-
-  }
-  
