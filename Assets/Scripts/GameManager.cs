@@ -106,22 +106,14 @@ public class GameManager : MonoBehaviour
             Quaternion.identity);
 
 
-        activeEnemies.Add(enemy);
-            
-            
-
+            activeEnemies.Add(enemy);
 
             EnemyScript enemyScript = enemy.GetComponent<EnemyScript>();
 
-
-            // Si el prefab tiene un componente que necesita referencia al GameManager,
-            
-
-
-            // asignarla aquí (no se puede asumir el nombre del componente sin más contexto).
-            // Ejemplo (descomentar si existe un componente EnemyScript con SetGameManager):
-            // var enemyComp = enemy.GetComponent<EnemyScript>();
-            // if (enemyComp != null) enemyComp.SetGameManager(this);
+            if (enemyScript != null)
+            {
+                enemyScript.Initialize(this);
+            }
         }
     }
 
