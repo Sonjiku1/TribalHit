@@ -1,4 +1,5 @@
 using JetBrains.Annotations;
+using System;
 using System.Xml.Linq;
 using UnityEngine;
 using UnityEngine.Video;
@@ -12,6 +13,7 @@ public class Clases : MonoBehaviour { }
     public  float resistencia;
     public  float destreza;
     public  float vida;
+    private object objetivo;
 
     public Orco(string n)
     {
@@ -23,8 +25,26 @@ public class Clases : MonoBehaviour { }
         vida = 100 + resistencia * 5;
     }
 
+    public void Atacar (Orco Objeto)
+    {
+        float daño = CalcularDañoBasico();
+        object resultadoDaño = objetivo.CalcularDaño(daño);
+        Debug.Log( $(nombre)"atacar a"(Objeto.nombre) "e inflige"(daño) "de daño.");
 
 
+    }
+
+
+    private float CalcularDañoBasico()
+    {
+        throw new NotImplementedException();
+    }
+
+
+    public void setVida(float vida)
+    {
+       // this.vida = Mathf.Clamp(vida,)
+    }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
