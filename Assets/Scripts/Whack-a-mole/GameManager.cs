@@ -1,4 +1,7 @@
+using JetBrains.Annotations;
+using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -6,58 +9,112 @@ public class GameManager : MonoBehaviour
     //TODO
 
     // Prefab del enemigo que vamos a generar
+    // exponerlo en el editor para poder asignarlo desde Unity
+
+  [SerializeField] private  GameObject enemyPrefab;
+
+
 
     // ARRAY:
     // Las posiciones posibles son conocidas y no cambiarán
     // durante la ejecución del juego.
-  
+
+    // Hacer un array de transforms
+    [SerializeField] private Transform[] spawnPositions;
+
     // Número de enemigos que queremos generar en cada ronda
 
+    [ SerializeField] private int numberOfEnemies = 5;
+    
     // LIST:
     // El número de enemigos vivos sí cambiará durante la partida.
-   
+    GameObject createdEnemy;
+
+    private List<GameObject> activeEnemies = new List<GameObject>();
+    public int V { get; private set; }
+
     //Score
+  
+     int score = 0;
+
+    GameObject created;
     void Start()
     {
         //TODO: Llamamos a la generación de enemigos
+
+        //instanciar un enemigo 
+
+       createdEnemy= Instantiate(enemyPrefab, Vector3.zero, Quaternion.identity);
+
+        // Que se desplace 3 unidades en el eje x 
+
+
+        GenerarEnemigos(enemyPrefab);
     }
+    
 
     void Update()
     {
-        //TODO:  Reiniciamos la ronda pulsando R
+        // Reiniciamos la ronda pulsando R
+    
+        createdEnemy.transform.position += new Vector3(3.0f, 0f, 0f) * Time.deltaTime;
+
+        if (createdEnemy.transform.position.x > 10.85f)
+        {
+            createdEnemy.transform.position = new Vector3(0, createdEnemy.transform.position.y, createdEnemy.transform.position.z);
+        }
+
+        float speed = 10.0f; // velocidad en unidades por segundo
+        createdEnemy.transform.position += new Vector3(speed * Time.deltaTime, 0f, 0f);
     }
+  
 
     //Generar oleada
-    private void GenerarEnemigos()
+    private void GenerarEnemigos(GameObject enemyPrefab)
     {
-        //TODO: 
-        // Evitamos intentar generar más enemigos
-        // que posiciones disponibles.
-        
-        // ARRAY auxiliar:
-        // Nos permite saber qué posiciones ya hemos utilizado.
-        //
-        // false = libre
-        // true = ocupada
+        if (numberOfEnemies > spawnPositions.Length)
+        {
+            Debug.LogWarning("No hay suficientes posiciones para generar enemigos.");
+            return;
+        }
 
-        // FOR:
-        // Sabemos cuántos enemigos queremos generar.
-        
-            // Elegimos una posición aleatoria.
+        // Usar un bool[] explícito y con nombre distinto para evitar conflictos de scope
+        bool[] ocupados = new bool[spawnPositions.Length];
+        for (int i = 0; i < ocupados.Length; i++)
+        {
+            ocupados[i] = false;
+        }
+   
+        // Generamos numberOfEnemies enemigos (sin punto y coma que vaciaba el for)
+        for (int i = 0; i < numberOfEnemies; i++)
+        {
+            int randomposition = UnityEngine.Random.Range(0, spawnPositions.Length);
 
-            // WHILE:
-            // Mientras esa posición ya esté ocupada,
-            // buscamos otra.
-           
-            // Marcamos esa posición como utilizada.
+            // Mientras la posición esté ocupada, buscamos otra
+            while (ocupados[randomposition])
+            {
+                randomposition = UnityEngine.Random.Range(0, spawnPositions.Length);
+            }
 
-            // Creamos el enemigo.
+            // Marcamos la posición usada
+            ocupados[randomposition] = true;
 
-            // Guardamos el enemigo en nuestra lista
-            // de enemigos actualmente vivos.
+            // Instanciamos el enemigo en la posición elegida y lo guardamos en la lista
+            GameObject enemy = Instantiate(
+            enemyPrefab,
+            spawnPositions[randomposition].position,
+            Quaternion.identity);
 
-            // Le damos al enemigo una referencia
-            // al GameManager.
+
+            activeEnemies.Add(enemy);
+
+            EnemyScript enemyScript = enemy.GetComponent<EnemyScript>();
+
+            if (enemyScript != null)
+            {
+                enemyScript.Initialize(this);
+            }
+        }
     }
 
 
@@ -65,11 +122,24 @@ public class GameManager : MonoBehaviour
 
     public void EnemigoDestruido(GameObject enemy)
     {
+       
         //TODO: 
         // Eliminamos la referencia de la lista.
         // Cuando la lista esté vacía,
         // hemos terminado la ronda.
-        
+
+        activeEnemies.Remove(enemy);
+
+        score += 100; // Incrementa el score en 10 puntos por cada enemigo destruido
+
+        Debug.Log(" enemigo destruido. Score: " + score);
+
+        if (activeEnemies.Count == 0)
+        {
+            Debug.Log("Ronda completada. Score: " + score);
+            ReiniciarEnemigos();
+        }
+
     }
 
 
