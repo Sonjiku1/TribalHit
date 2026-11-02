@@ -19,13 +19,6 @@ public class Myvector3
         this.magnitude = Magnitude();
     }
 
-    public Myvector3 (float x, float y, float z,)
-    {
-        this.valorX = x;
-        this.valorY = y;
-        this .valorZ = z;
-
-    }
 
   public  float Magnitude()
     {
@@ -41,18 +34,18 @@ public class Myvector3
         }
     }
 
-    public Myvector3 Add(Myvector3 vec)
-    {
-        float x3 = this.valorX + vec.valorX;
-        float y3 = this.valorY + vec.valorY;
-        float z3 = this.valorZ + vec.valorZ;
+   // public Myvector3 Add(Myvector3 vec)
+    //{
+     //   float x3 = this.valorX + vec.valorX;
+       // float y3 = this.valorY + vec.valorY;
+        //float z3 = this.valorZ + vec.valorZ;
 
-        Myvector3 vec3 = new Myvector3(x3,y3,z3);
+       // Myvector3 vec3 = new Myvector3(x3,y3,z3);
 
-        return new Myvector3(x3, y3, z3);
+        //return new Myvector3(x3, y3, z3);
 
     }
 
     // public void Normalize()
 
-}
+

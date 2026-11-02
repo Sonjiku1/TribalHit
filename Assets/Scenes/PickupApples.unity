@@ -251,8 +251,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Gamecontroller
   applePrefab: {fileID: 4030932788916264885, guid: 567c6e64706bedb47820a89665510526, type: 3}
-  Gravity: 2
-  playerPosition: {fileID: 0}
+  Gravity: 3
+  playerPosition: {fileID: 873004260}
+  ScoreText: {fileID: 915463648}
 --- !u!4 &447400475
 Transform:
   m_ObjectHideFlags: 0
@@ -430,7 +431,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: New Text
+  m_text: 'puntos
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

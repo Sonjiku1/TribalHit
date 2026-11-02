@@ -1,23 +1,22 @@
-using JetBrains.Annotations;
-using System;
-using System.Xml.Linq;
-using UnityEngine;
-using UnityEngine.Video;
 
-public class Clases : MonoBehaviour { }
-      public class Orco
-  
+using System;
+using UnityEngine;
+
+public class Clases : MonoBehaviour
 {
-    public string name;
+}
+
+public class Orco
+{
+    public string nombre;
     public float fuerza;
-    public  float resistencia;
-    public  float destreza;
-    public  float vida;
-    private object objetivo;
+    public float resistencia;
+    public float destreza;
+    public float vida;
 
     public Orco(string n)
     {
-        name = "fulanito";
+        nombre = n;
         fuerza = 5.0f;
         resistencia = 5.0f;
         destreza = 5.0f;
@@ -25,38 +24,33 @@ public class Clases : MonoBehaviour { }
         vida = 100 + resistencia * 5;
     }
 
-    public void Atacar (Orco Objeto)
+    public void Atacar(Orco objetivo)
     {
         float daño = CalcularDañoBasico();
-        object resultadoDaño = objetivo.CalcularDaño(daño);
-        Debug.Log( $(nombre)"atacar a"(Objeto.nombre) "e inflige"(daño) "de daño.");
 
+        objetivo.RecibirDaño(daño);
 
+        Debug.Log(nombre + " ataca a " + objetivo.nombre +
+                  " e inflige " + daño + " de daño.");
     }
-
 
     private float CalcularDañoBasico()
     {
-        throw new NotImplementedException();
+        return fuerza * 2;
     }
 
-
-    public void setVida(float vida)
+    public void RecibirDaño(float daño)
     {
-       // this.vida = Mathf.Clamp(vida,)
+        setVida(vida - daño);
     }
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public void setVida(float nuevaVida)
     {
+        vida = Mathf.Clamp(nuevaVida, 0, 100 + resistencia * 5);
 
-    }
-    
-    
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        if (vida <= 0)
+        {
+            Debug.Log(nombre + " ha sido derrotado.");
+        }
     }
 }
