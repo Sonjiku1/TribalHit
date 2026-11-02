@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 3
   tags:
   - apple
+  - player
+  - fruit
   layers:
   - Default
   - TransparentFX
