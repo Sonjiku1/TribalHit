@@ -7,6 +7,7 @@ public class PlayerScript : MonoBehaviour
 
     void Start()
     {
+      
         // Posición inicial del jugador
         transform.position = new Vector3(0f, -4f, 0f);
     }
